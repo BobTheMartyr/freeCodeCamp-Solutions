@@ -1,0 +1,9 @@
+function rangeOfNumbers(startNum, endNum) {
+  if( endNum == startNum ){
+    return [startNum]
+  } else {
+    const count = rangeOfNumbers(startNum, endNum -1)
+    count.push(endNum)
+    return count
+  } 
+}
