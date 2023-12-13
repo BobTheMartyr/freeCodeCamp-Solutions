@@ -1,0 +1,5 @@
+function palindrome(str) {
+  str = str.toLowerCase()
+  let regex = str.match(/[a-z0-9]/g)
+  return regex.join('') === regex.reverse().join('')
+}
