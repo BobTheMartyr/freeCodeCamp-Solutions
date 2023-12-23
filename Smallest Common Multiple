@@ -1,0 +1,12 @@
+function smallestCommons(arr) {
+  let range = [Math.min(...arr)]
+  let max = Math.max(...arr)
+  for( let i = range[0] + 1; i <= max; i++ ){
+    range.push(i)
+  }
+  let mult = max
+  while( !range.every(el => mult % el == 0) ){
+    mult += max
+  }
+  return mult
+}
