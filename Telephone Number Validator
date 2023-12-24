@@ -1,0 +1,15 @@
+function telephoneCheck(str) {
+  if( /[a-zA-Z]/g.test(str) ){
+    return false
+  }
+  if( str.length == 11 && str[0] != '1' ){
+    return false
+  }
+  if( str.match(/\(/) && !str.match(/\)/) || !str.match(/\(/) && str.match(/\)/) ){
+    return false
+  }
+  let regex = /^1?\s?\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{4}$/
+  return regex.test(str)
+}
+
+telephoneCheck("555-555-5555");
