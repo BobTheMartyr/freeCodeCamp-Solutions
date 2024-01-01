@@ -1,0 +1,48 @@
+function checkCashRegister(price, cash, cid) {
+  cid = cid.reverse()
+  let regTotal = parseFloat(cid.map(el => el[1]).reduce((t,c) => t + c).toFixed(2))
+  let change = parseFloat((cash - price).toFixed(2))
+  
+  if( change > regTotal ){
+    return {
+      status: "INSUFFICIENT_FUNDS",
+      change: []
+    }
+  }
+  if( change == regTotal ){
+    return {
+      status: "CLOSED",
+      change: cid.reverse()
+    }
+  }
+  let values = [100, 20, 10, 5, 1, .25, .1, .05, .01]
+  let result = []
+  
+
+  for( let i = 0; i < values.length; i++ ){
+    if( change >= values[i] && cid[i][1] > 0 ){
+      let moneyType = cid[i][0]
+      let amount = 0
+      while( change >= values[i] && cid[i][1] > 0 ){
+        amount += values[i]
+        change =  parseFloat((change - values[i]).toFixed(2))
+        cid[i][1] -= values[i]
+      }
+      result.push([moneyType, amount])
+    }
+  }
+
+  if( change > 0 ){
+    return {
+      status: "INSUFFICIENT_FUNDS",
+      change: []
+    }
+  } else {
+    return {
+      status: "OPEN",
+      change: [...result]
+    }
+  }
+}
+
+console.log(checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]))
